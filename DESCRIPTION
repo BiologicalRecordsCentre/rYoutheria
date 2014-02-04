@@ -1,0 +1,10 @@
+Package: rYoutheria
+Type: Package
+Title: Access to the YouTheria mammal trait database
+Version: 0.0.1
+Date: 2013-11-04
+Author: Tom August
+Maintainer: Tom August <tom.august@ceh.ac.uk>
+Description: Access to the YouTheria mammal trait database using the portal's web services.
+Depends: R (>= 3.0.0), plyr, RJSONIO, reshape2
+License: ??
