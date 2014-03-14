@@ -5,7 +5,8 @@
 #' @param genus If \code{NULL} (default), then a lis of all genera are
 #'        returned. Can also be 'numeric' or 'character' (or a list of either type)
 #'        and will filter by Id and Name respectivly in the resulting data.frame.
-#' @return A dataframe of genera giving their Id and Name        
+#' @return A dataframe of genera giving their Id and Name
+#' @export       
 #' @examples
 #' \dontrun{
 #' 

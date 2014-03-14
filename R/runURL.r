@@ -4,11 +4,13 @@ runURL <-
     if(is.null(URL)) stop('URL is NULL')
     if(is.null(type)) stop('type is NULL')
     
-    if(type=='m') baseURL<-'http://localhost:2947/api/ValueByType'
-    if(type=='l') baseURL<-'http://localhost:2947/api/Location'
-    if(type=='t') baseURL<-'http://localhost:2947/api/Measurement'
-    if(type=='g') baseURL<-'http://localhost:2947/api/Genus'
-    if(type=='c') baseURL<-'http://localhost:2947/api/Country'
+    apiURL <- 'http://www.utheria.org/api/'
+    
+    if(type=='m') baseURL <- paste(apiURL, 'ValueByType', sep = '')
+    if(type=='l') baseURL <- paste(apiURL, 'Location', sep = '')
+    if(type=='t') baseURL <- paste(apiURL, 'Measurement', sep = '')
+    if(type=='g') baseURL <- paste(apiURL, 'Genus', sep = '')
+    if(type=='c') baseURL <- paste(apiURL, 'Country', sep = '')
     
     fullURL <- paste(baseURL,URL,sep='')
     
