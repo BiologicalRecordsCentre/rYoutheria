@@ -25,21 +25,21 @@ test_that("Testing errors and warnings are given", {
 
 test_that("Testing search by measurement type", {
   expect_is(test <- getMeasurementData(measurementType='Dispersal Age', silent=TRUE), 'data.frame')
-  expect_equal(ncol(test), 17)
+  expect_equal(ncol(test), 32)
   expect_is(test2 <- getMeasurementData(c('Growth Data','Dispersal Age'), silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))
 })
 
 test_that("Testing MSW93binomial searches", {
   expect_is(test <- getMeasurementData(measurementType = 12, MSW93Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
-  expect_equal(ncol(test), 17)
+  expect_equal(ncol(test), 32)
   expect_is(test2 <- getMeasurementData(measurementType = 12, MSW93Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))  
 })
 
 test_that("Testing MSW05binomial searches", {
   expect_is(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
-  expect_equal(ncol(test), 17)
+  expect_equal(ncol(test), 32)
   expect_is(test2 <- getMeasurementData(measurementType = 12, MSW05Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))  
 })
@@ -50,7 +50,9 @@ test_that("Testing complex search", {
 
 test_that("Testing casting", {
   expect_is(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', cast = FALSE, silent=TRUE), 'data.frame')
-  expect_equal(ncol(test), 11)
+  expect_equal(ncol(test), 26)
+  expect_is(test2 <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
+  expect_true(ncol(test)<ncol(test2))
 })
 
 test_that("Testing location addition", {

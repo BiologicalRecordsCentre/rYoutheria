@@ -4,7 +4,7 @@
 \usage{
 getMeasurementData(measurementType = NA, MSW93Binomial = NA,
   MSW05Binomial = NA, country = NULL, StudyUnitId = NULL,
-  locationData = FALSE, locationOnly = FALSE, cast = TRUE,
+  locationData = TRUE, locationOnly = FALSE, cast = TRUE,
   silent = FALSE)
 }
 \arguments{

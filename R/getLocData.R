@@ -17,7 +17,7 @@ getLocData <-
   function(country=NULL,StudyUnitId=NULL){
        
     if(!is.null(StudyUnitId)&!is.null(country)) stop('Cannot use both StudyUnitId and country at the same time')
-
+    
     out <- runURL(paste('?id=', StudyUnitId,
                  '&country=', country, sep=''), 'l')
     

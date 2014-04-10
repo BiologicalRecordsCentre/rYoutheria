@@ -52,7 +52,7 @@ getMeasurementData <-
            MSW05Binomial = NA,           
            country=NULL,
            StudyUnitId=NULL,
-           locationData = FALSE,
+           locationData = TRUE,
            locationOnly = FALSE,
            cast = TRUE,
            silent = FALSE
@@ -106,14 +106,17 @@ getMeasurementData <-
       
       # cast the data if requested
       if(length(out) == 0){        
-        warning('No data was returned. Check species names and locations are correct')
+        warning('No data was returned. Check species names are correct')
         out <- NULL        
-      } else if(cast & nrow(out) > 0 & length(out) != 0){
-        if(!silent) cat('Casting data...')
-        out <- dcast(out,  MeasurementTypeID+MeasurementSetID+StudyUnitId+Genus+Species+SubSpecies
-                     +MSW93Binomial+MSW05Binomial+AuthorityText ~ ValueType, value.var = 'MValue')    
-        if(!silent) cat('complete\n')
-              
+      } else {
+        
+        if(cast & nrow(out) > 0){
+          if(!silent) cat('Casting data...')
+          out <- dcast(out,  MeasurementTypeID+MeasurementSetID+StudyUnitId+Genus+Species+SubSpecies
+                       +MSW93Binomial+MSW05Binomial+AuthorityText ~ ValueType, value.var = 'MValue')    
+          if(!silent) cat('complete\n')
+        }
+        
         if(!silent) cat('Retrieving location information...')
         loc_data <- getLocData(country, StudyUnitId)
         if(!silent) cat('complete\n')
@@ -135,7 +138,7 @@ getMeasurementData <-
           warning(paste(startRowCount - endRowCount, 'rows have been removed as they are missing location information'))
           }
         }
-      }     
+      } 
     } else {
       if(!silent) cat('Retrieving trait information...')
       out <- runURL(URL,'m')

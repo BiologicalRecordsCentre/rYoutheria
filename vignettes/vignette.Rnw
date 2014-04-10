@@ -1,0 +1,87 @@
+% \VignetteIndexEntry{rYouteria Guide}
+%\VignettePackage{rYoutheria}
+\documentclass[a4paper]{article}
+\usepackage{a4wide}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{array}
+
+% bibliography style
+\usepackage[sectionbib,round]{natbib}
+\bibliographystyle{mybst}
+\setcounter{secnumdepth}{3}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\title{Extracting data from the Youtheria database into R}
+\author{Tom August, CEH}
+\date\today
+\maketitle
+\section{Introduction}
+YouTHERIA is an online dataset containing data on the life history, ecology. taxonomy and geography of mammals. 
+
+This package provides methods to retrieve data from this resource
+
+\section{Installation}
+The package can be installed directly from GitHub like this
+
+\begin{verbatim}
+# Install devtools
+install.packages("devtools")
+
+# Load devtools
+library(devtools)
+
+# Install rYoutheria from github
+install_github("rYoutheria", username = "BiologicalRecordsCentre")
+
+# Load rYoutheria
+library(rYoutheria)
+\end{verbatim}
+
+\section{Choosing search terms}
+When searching Youtheria it is likely that you have a measurement type in mind, such as body mass or diet. To look up what measurement types are available use the getMeasurementTypes() function:
+
+<<>>=
+# Load rYoutheria
+library(rYoutheria)
+
+# Get a list of all measurement types
+MTs <- getMeasurementTypes()
+head(MTs)
+
+# Look up a specific measurement type
+getMeasurementTypes(measurementType='Body Mass')
+@
+
+Species names in Youtheria are linked to definitions given in the Mammals Species of the World and when it comes to searching you can search under either the 1993 definintions or the 2005 definitions.
+
+rYoutheria also allows searching by country or study site ID. You can get a list of countries by using hte getCountries() function. This takes no arguements and simply gives you a list of all countries available
+
+<<>>=
+# Get a list of countries
+Cs <- getCountries()
+head(Cs)
+@
+
+\section{Choosing search terms}
+Once we have decided what our search terms are going to be we can use the getMeasurementData() function.
+
+\begin{verbatim}
+# Get measurement data for body mass
+dispAge <- getMeasurementData(measurementType = 'Dispersal Age')
+
+# Get measurement data for body mass of Daubenton's bats
+bodyMassDaub <- getMeasurementData(measurementType = 'Body Mass',
+                                   MSW05Binomial = 'Myotis daubentonii',
+                                   silent = TRUE)
+
+# Get measurement data for age of maturity of Swiss Lynx
+LynxSwiss <- getMeasurementData(measurementType = 'Sexual Maturity Age',
+                                MSW05Binomial = 'Lynx lynx',
+                                country = 'Switzerland',
+                                silent = TRUE)
+\end{verbatim}
+
+\end{document}
