@@ -5,45 +5,64 @@ library(rYoutheria)
 test_that("Testing errors and warnings are given", {
   expect_error(test <- getMeasurementData(999),
                regexp = 'All measurement types specified are invalid:')
-  expect_warning(test <- getMeasurementData(c(1,999)),
+  expect_warning(test <- getMeasurementData(c(12,999)),
                  regexp = 'Some measurement types unknown:')
   expect_error(test <- getMeasurementData('s'),
                regexp = 'All measurement types specified are invalid:')
-  expect_warning(test <- getMeasurementData(c('Body Mass','s')),
+  expect_warning(test <- getMeasurementData(c('Dispersal Age','s')),
                  regexp = 'Some measurement types unknown:')
-  expect_warning(test <- getMeasurementData(measurementType = 1, MSW93Binomial='Pon'),
+  expect_warning(test <- getMeasurementData(measurementType = 12, MSW93Binomial='Pon', silent=TRUE),
                  regexp = 'No data was returned')
-  expect_warning(test <- getMeasurementData(measurementType = 1, MSW93Binomial=c('Tom', 'Dick', 'Harry', 'Peroryctes raffrayana')),
+  expect_warning(test <- getMeasurementData(measurementType = 12, MSW93Binomial=c('Tom', 'Dick', 'Harry', 'Petaurus breviceps'), silent=TRUE),
                  regexp = 'There were no results returned for the following species: Tom, Dick, Harry')
-  expect_warning(test <- getMeasurementData(measurementType = 1, MSW05Binomial='Pon'),
+  expect_warning(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Pon', silent=TRUE),
                  regexp = 'No data was returned')
-  expect_warning(test <- getMeasurementData(measurementType = 1, MSW05Binomial=c('Tom', 'Dick', 'Harry', 'Peroryctes raffrayana')),
+  expect_warning(test <- getMeasurementData(measurementType = 12, MSW05Binomial=c('Tom', 'Dick', 'Harry', 'Petaurus breviceps'), silent=TRUE),
                  regexp = 'There were no results returned for the following species: Tom, Dick, Harry')
-  expect_error(test <- getMeasurementData(measurementType = 1, MSW05Binomial='Tom',MSW93Binomial='Dick'),
+  expect_error(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Tom',MSW93Binomial='Dick'),
                regexp = 'Cannot filter by MSW05Binomial and MSW93Binomial')  
 })
 
 test_that("Testing search by measurement type", {
-  expect_is(test <- getMeasurementData('Body Mass'), 'data.frame')
-  expect_equal(ncol(test), 11)
-  expect_is(test2 <- getMeasurementData(c('Body Mass','Population Density')), 'data.frame')
+  expect_is(test <- getMeasurementData(measurementType='Dispersal Age', silent=TRUE), 'data.frame')
+  expect_equal(ncol(test), 17)
+  expect_is(test2 <- getMeasurementData(c('Growth Data','Dispersal Age'), silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))
 })
 
 test_that("Testing MSW93binomial searches", {
-  expect_is(test <- getMeasurementData(measurementType = 1, MSW93Binomial='Pongo pygmaeus'), 'data.frame')
-  expect_equal(ncol(test), 11)
-  expect_is(test2 <- getMeasurementData(measurementType = 1, MSW93Binomial=c('Pongo pygmaeus','Hodomys alleni')), 'data.frame')
+  expect_is(test <- getMeasurementData(measurementType = 12, MSW93Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
+  expect_equal(ncol(test), 17)
+  expect_is(test2 <- getMeasurementData(measurementType = 12, MSW93Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))  
 })
 
 test_that("Testing MSW05binomial searches", {
-  expect_is(test <- getMeasurementData(measurementType = 1, MSW05Binomial='Pongo pygmaeus'), 'data.frame')
-  expect_equal(ncol(test), 11)
-  expect_is(test2 <- getMeasurementData(measurementType = 1, MSW05Binomial=c('Pongo pygmaeus','Hodomys alleni')), 'data.frame')
+  expect_is(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
+  expect_equal(ncol(test), 17)
+  expect_is(test2 <- getMeasurementData(measurementType = 12, MSW05Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))  
 })
 
+test_that("Testing complex search", {
+  expect_is(test <- getMeasurementData(measurementType = c(12,16,1), MSW05Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
+})
 
+test_that("Testing casting", {
+  expect_is(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', cast = FALSE, silent=TRUE), 'data.frame')
+  expect_equal(ncol(test), 11)
+})
 
-
+test_that("Testing location addition", {
+  expect_is(test1 <- getMeasurementData(measurementType = 12, locationData = TRUE, silent=TRUE), 'data.frame')
+  expect_equal(ncol(test1), 32)
+  expect_warning(test2 <- getMeasurementData(measurementType = 12, locationData = TRUE, locationOnly = TRUE, silent=TRUE),
+                 regexp = 'rows have been removed as they are') 
+  expect_true(nrow(test1) > nrow(test2))
+  expect_is(test3 <- getMeasurementData(measurementType = 12, country='Switzerland', silent=TRUE), 'data.frame')
+  expect_true(nrow(test2) > nrow(test3))
+  expect_is(test4 <- getMeasurementData(measurementType = 12, StudyUnitId=197, silent=TRUE), 'data.frame')  
+  expect_true(nrow(test2) > nrow(test4))
+  expect_error(test4 <- getMeasurementData(measurementType = 12, StudyUnitId=197, country = 'India', silent=TRUE),
+               regexp = 'Cannot use both StudyUnitId and country at the same time')    
+})

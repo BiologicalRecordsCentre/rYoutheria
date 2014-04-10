@@ -14,14 +14,18 @@
 #'        for which measurements are required. Naming should follow Mammal Species of the 
 #'        World 2005.
 #' @param country Character specifying the country from which you wish to collect data.
-#'        If \code{NULL} all data is retrieved
+#'        If \code{NULL} all data is retrieved. If specified then \code{locationOnly}
+#'        is set to \code{TRUE}
 #' @param StudyUnitId Numeric specifying the StudyUnitId from which you wish to collect data.
 #'        If \code{NULL} all data is retrieved
 #' @param locationData Logial dictating whether location information should be added to the
 #'        output. Defualt is \code{FALSE} but is set to \code{TRUE} if either StudyUnitId or
 #'        country are specified.
-#' @param locationOnly Logical only used if locationData is TRUE. If \code{TRUE} data
-#'        is only be returned if it has location information.
+#' @param locationOnly If \code{TRUE} data is only be returned if it has location information.
+#' @param cast If \code{TRUE} (default) then the data is cast so that each observation 
+#'        is one row in the output. If false then each observation has one row for 
+#'        each data element recorded (i.e. range, mean, units, etc)
+#' @param silent If \code{TRUE} progress reporting is silenced
 #' 
 #' @return A \code{data.frame} with each row giving a trait measurement        
 #' @export
@@ -43,20 +47,18 @@
 #' 
 #' }
 getMeasurementData <-
-  function(measurementType = NULL,
-           MSW93Binomial = NULL,
-           MSW05Binomial = NULL,           
+  function(measurementType = NA,
+           MSW93Binomial = NA,
+           MSW05Binomial = NA,           
            country=NULL,
            StudyUnitId=NULL,
            locationData = FALSE,
-           locationOnly = TRUE
+           locationOnly = FALSE,
+           cast = TRUE,
+           silent = FALSE
            ){
-      
-    measurementTypeURL <- NULL
-    MSW93BinomialURL <- NULL
-    MSW05BinomialURL <- NULL
-    
-    if(!is.null(measurementType)){
+  
+    if(!identical(measurementType,NA)){
             
         if(is.numeric(measurementType)){
           if(!exists('MTs')) MTs <- getMeasurementTypes()
@@ -78,49 +80,85 @@ getMeasurementData <-
           }           
           measurementType <- MTs$Id[MTs$Name %in% measurementType]
         }
-          
-        measurementTypeURL <- paste(measurementType, collapse = ',', sep='')
-      
     }
     
-    if(!is.null(MSW93Binomial) & !is.null(MSW05Binomial)) stop ('Cannot filter by MSW05Binomial and MSW93Binomial. Choose one or the other')
+    if(!identical(MSW93Binomial,NA) & !identical(MSW05Binomial,NA)) stop ('Cannot filter by MSW05Binomial and MSW93Binomial. Choose one or the other')
     
-    if(!is.null(MSW93Binomial)){
-      
-      MSW93BinomialURL <- paste(MSW93Binomial, collapse = ',',sep='')
-            
-    }
-    
-    if(!is.null(MSW05Binomial)){
-     
-      MSW05BinomialURL <- paste(MSW05Binomial, collapse = ',',sep='')
-     
-    }
-       
-    URL <- paste('?id=', measurementTypeURL,
-                 '&MSW93Binomial=', MSW93BinomialURL,
-                 '&MSW05Binomial=', MSW05BinomialURL, sep='')
-     
+    if(!is.null(StudyUnitId)&!is.null(country)) stop('Cannot use both StudyUnitId and country at the same time')
+   
+    # This rather complicated bit of code creates all possible combinations
+    # for the URL string
+    URL <- apply(expand.grid(paste('?id=',
+                                   apply(expand.grid(as.character(ifelse(is.na(measurementType),'',measurementType)),
+                                                     ifelse(is.na(MSW93Binomial),'',MSW93Binomial)),
+                                         1,paste,collapse='&MSW93Binomial='),
+                             sep=''),
+                             ifelse(is.na(MSW05Binomial),'',MSW05Binomial)),
+                 1,paste,collapse='&MSW05Binomial=')
+
     if(!is.null(country) | !is.null(StudyUnitId)) locationData = TRUE
     
     if(locationData){
       
+      if(!silent) cat('Retrieving trait information...')
       out <- runURL(URL,'m')
-      loc_data <- getLocData(country, StudyUnitId)
-      out <- merge(out, loc_data, all.x = !locationOnly, all.y = F)
+      if(!silent) cat('complete\n')
       
+      # cast the data if requested
+      if(length(out) == 0){        
+        warning('No data was returned. Check species names and locations are correct')
+        out <- NULL        
+      } else if(cast & nrow(out) > 0 & length(out) != 0){
+        if(!silent) cat('Casting data...')
+        out <- dcast(out,  MeasurementTypeID+MeasurementSetID+StudyUnitId+Genus+Species+SubSpecies
+                     +MSW93Binomial+MSW05Binomial+AuthorityText ~ ValueType, value.var = 'MValue')    
+        if(!silent) cat('complete\n')
+              
+        if(!silent) cat('Retrieving location information...')
+        loc_data <- getLocData(country, StudyUnitId)
+        if(!silent) cat('complete\n')
+        
+        if(!silent) cat('Combining data...')
+        startRowCount <- nrow(out)
+        if(is.null(country) & is.null(StudyUnitId)){
+          out <- merge(out, loc_data, all.x = !locationOnly, all.y = F)
+        } else {
+          out <- merge(out, loc_data, all.x = FALSE, all.y = F)
+        }
+        endRowCount <- nrow(out)
+        if(!silent) cat('complete\n')
+        
+        if(locationOnly & startRowCount != endRowCount){
+          if(endRowCount == 0){
+            stop('No measurements have location information')
+          } else {
+          warning(paste(startRowCount - endRowCount, 'rows have been removed as they are missing location information'))
+          }
+        }
+      }     
     } else {
+      if(!silent) cat('Retrieving trait information...')
       out <- runURL(URL,'m')
+      if(!silent) cat('complete\n')
+      
+      # cast the data if requested
+      if(length(out) == 0){
+        warning('No data was returned. Check species names and locations are correct')
+        out <- NULL
+      } else if(cast & nrow(out) > 0 & length(out) != 0){
+        if(!silent) cat('Casting data...')
+        out <- dcast(out,  MeasurementTypeID+MeasurementSetID+StudyUnitId+Genus+Species+SubSpecies
+                     +MSW93Binomial+MSW05Binomial+AuthorityText ~ ValueType, value.var = 'MValue')    
+        if(!silent) cat('complete\n')
+      }
     }
     
-    if(length(out) == 0) warning('No data was returned. Check species names and locations are correct')
-    
     #Report species that are missing from the results be requested
-    if(!is.null(MSW93Binomial)){
+    if(!identical(MSW93Binomial,NA)){
       missing <- MSW93Binomial[!MSW93Binomial %in% unique(out$MSW93Binomial)]
       if(length(missing)>0) warning(paste('There were no results returned for the following species:', paste(missing, collapse=', ')))    
     }
-    if(!is.null(MSW05Binomial)){
+    if(!identical(MSW05Binomial,NA)){
       missing <- MSW05Binomial[!MSW05Binomial %in% unique(out$MSW05Binomial)]
       if(length(missing)>0) warning(paste('There were no results returned for the following species:', paste(missing, collapse=', ')))    
     }

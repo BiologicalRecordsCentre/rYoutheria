@@ -1,3 +1,4 @@
+export(YoutheriaToDF)
 export(getCountries)
 export(getGenus)
 export(getLocData)

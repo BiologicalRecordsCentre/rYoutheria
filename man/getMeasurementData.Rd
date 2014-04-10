@@ -2,9 +2,10 @@
 \alias{getMeasurementData}
 \title{Get a table of trait measurements from YouTheria}
 \usage{
-getMeasurementData(measurementType = NULL, MSW93Binomial = NULL,
-  MSW05Binomial = NULL, country = NULL, StudyUnitId = NULL,
-  locationData = FALSE, locationOnly = TRUE)
+getMeasurementData(measurementType = NA, MSW93Binomial = NA,
+  MSW05Binomial = NA, country = NULL, StudyUnitId = NULL,
+  locationData = FALSE, locationOnly = FALSE, cast = TRUE,
+  silent = FALSE)
 }
 \arguments{
   \item{measurementType}{Measurement types to collect data
@@ -26,7 +27,8 @@ getMeasurementData(measurementType = NULL, MSW93Binomial = NULL,
 
   \item{country}{Character specifying the country from
   which you wish to collect data.  If \code{NULL} all data
-  is retrieved}
+  is retrieved. If specified then \code{locationOnly} is
+  set to \code{TRUE}}
 
   \item{StudyUnitId}{Numeric specifying the StudyUnitId
   from which you wish to collect data.  If \code{NULL} all
@@ -37,9 +39,16 @@ getMeasurementData(measurementType = NULL, MSW93Binomial = NULL,
   \code{FALSE} but is set to \code{TRUE} if either
   StudyUnitId or country are specified.}
 
-  \item{locationOnly}{Logical only used if locationData is
-  TRUE. If \code{TRUE} data is only be returned if it has
-  location information.}
+  \item{locationOnly}{If \code{TRUE} data is only be
+  returned if it has location information.}
+
+  \item{cast}{If \code{TRUE} (default) then the data is
+  cast so that each observation is one row in the output.
+  If false then each observation has one row for each data
+  element recorded (i.e. range, mean, units, etc)}
+
+  \item{silent}{If \code{TRUE} progress reporting is
+  silenced}
 }
 \value{
 A \code{data.frame} with each row giving a trait
