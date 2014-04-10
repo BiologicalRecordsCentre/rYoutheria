@@ -34,7 +34,7 @@ runURL <-
 executeURL<-
   function(fullURL, type){
     
-    print(fullURL)
+    #print(fullURL)
     resp <- getURL(fullURL)
     out <- fromJSON(resp, depth = 3, default.size = 1000)
     
