@@ -45,6 +45,8 @@ executeURL<-
           #######################################
           ##      THIS IS A TEMPORARY FIX      ##
           #######################################
+          # This fix removes duplicate entries in the data and (I think)
+          # removes duplicate Valuetype entries
           out <- YoutheriaToDF(out)
           out1 <- unique(out)
           tab1 <- table(out$MeasurementSetID)
@@ -55,9 +57,10 @@ executeURL<-
             tabTemp <- names(table(tempOut$ValueType)[table(tempOut$ValueType)>1])  
             for(j in tabTemp){              
               rnam <- row.names(out1[out1$MeasurementSetID==i & out1$ValueType==j,])
-              out <- out1[!row.names(out1) %in% rnam[2:length(rnam)],]
+              out1 <- out1[!row.names(out1) %in% rnam[2:length(rnam)],]
             }            
           }
+          out <- out1
           #######################################
           ##      THIS IS A TEMPORARY FIX      ##
           #######################################
