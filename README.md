@@ -4,7 +4,7 @@
 ### Installation
 ----------------
 
-To **install** the rYoutheria, it's easiest to use the `devtools` package:
+To **install** the rYoutheria package, it's easiest to use the `devtools` package:
 
     # install.packages("devtools")
     # NOTE: If you have not installed devtools before you will need to restart you R
@@ -17,4 +17,4 @@ To **install** the rYoutheria, it's easiest to use the `devtools` package:
     
 A tutorial, included in the installation, can be found by [following this link](https://github.com/BiologicalRecordsCentre/rYoutheria/raw/master/inst/doc/vignette.pdf)
 
-If you have difficulties installing rYoutheria using this method try updating your version of R to the most up-to-date version available. If you still have problems please contact us or use the issues page.
+If you have difficulties installing rYoutheria using this method try updating your version of R to the most up-to-date version available. If you still have problems please contact us or use the [issues page](https://github.com/BiologicalRecordsCentre/rYoutheria/issues?state=open).
