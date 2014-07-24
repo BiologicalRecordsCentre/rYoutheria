@@ -7,7 +7,6 @@
 #' @param x a list of trait data as returned by \code{fromJSON(getURL(url))}.
 #' 
 #' @return A \code{data.frame} of melted trait data        
-#' @export
 
 YoutheriaToDF <- function(x){ 
   

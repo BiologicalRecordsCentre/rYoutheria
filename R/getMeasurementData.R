@@ -29,23 +29,26 @@
 #' 
 #' @return A \code{data.frame} with each row giving a trait measurement        
 #' @export
+#' @import reshape2
 #' @examples
-#' \dontrun{
 #' 
-#' #Select measurement type by id
-#' getMeasurementData(1)
-#' getMeasurementData(c(1:3))
+#' # Select measurement type by id
+#' M14 <- getMeasurementData(14)
+#' M22_7_2 <- getMeasurementData(c(22,7,2))
 #' 
-#' #Select measurement type by name
-#' getMeasurementData('Body Mass')
-#' getMeasurementData(c('Body Mass','Population Density'))
+#' # Select measurement type by name
+#' WM <- getMeasurementData('Wing Morphology')
+#' WM_TN <- getMeasurementData(c('Wing Morphology','Teat Number'))
 #' 
-#' #Select by measurement type and species name
-#' getMeasurementData(measurementType = 1,
-#'                    MSW93Binomial=c('Pongo pygmaeus','Peroryctes raffrayana'))
-#' 
-#' 
-#' }
+#' # Select by measurement type and species name
+#' PpPr_bodymass <- getMeasurementData(measurementType = 1,
+#'                                     MSW93Binomial = c('Pongo pygmaeus','Peroryctes raffrayana'))
+#'                    
+#' #Select by measurement type, species name and location
+#' Ob_Activity_Tanz <- getMeasurementData(measurementType = 'Activity Cycle',
+#'                                        MSW05Binomial = 'Oryx beisa',
+#'                                        country = 'Tanzania')
+
 getMeasurementData <-
   function(measurementType = NA,
            MSW93Binomial = NA,

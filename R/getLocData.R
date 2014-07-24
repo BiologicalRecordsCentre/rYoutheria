@@ -1,6 +1,6 @@
 #' Get location information from YouTheria
 #' 
-#' Retrieves location information store on YouTheria
+#' Retrieves location information stored on YouTheria
 #' 
 #' @param country Character specifying the country within which to search for locations.
 #' for a list of countries used getCountries().
@@ -8,11 +8,9 @@
 #' @return A dataframe in which each rows gives the details of a study unit
 #' @export        
 #' @examples
-#' \dontrun{
+#' # Get a dataframe of Indian study units
+#' Indian_StudyUnits <- getLocData(country = 'India')
 #' 
-#' getLocData(country = 'India')
-#' 
-#' }
 getLocData <-
   function(country=NULL,StudyUnitId=NULL){
        
