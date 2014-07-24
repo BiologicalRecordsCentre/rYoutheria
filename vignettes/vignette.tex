@@ -1,4 +1,5 @@
 % \VignetteIndexEntry{rYouteria Guide}
+%\VignetteEngine{knitr::knitr}
 %\VignettePackage{rYoutheria}
 \documentclass[a4paper]{article}\usepackage[]{graphicx}\usepackage[]{color}
 %% maxwidth is the original width if it is less than linewidth
@@ -67,10 +68,16 @@
 \date\today
 \maketitle
 \section{Introduction}
-Youtheria is an online dataset containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource
+Youtheria is an online data set containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource
 
 \section{Installation}
-The package can be installed directly from GitHub like this
+The package can be installed directly from CRAN like this:
+
+\begin{verbatim}
+install.packages('rYoutheria')
+\end{verbatim}
+
+Alternatively you can install the most recent development version of the package like this:
 
 \begin{verbatim}
 # Install devtools
@@ -81,9 +88,6 @@ library(devtools)
 
 # Install rYoutheria from github
 install_github("rYoutheria", username = "BiologicalRecordsCentre")
-
-# Load rYoutheria
-library(rYoutheria)
 \end{verbatim}
 
 \section{Choosing search terms}
@@ -94,10 +98,7 @@ When searching Youtheria it is likely that you have a measurement type in mind, 
 \begin{alltt}
 \hlcom{# Load rYoutheria}
 \hlkwd{library}\hlstd{(rYoutheria)}
-\end{alltt}
 
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: plyr\\\#\# Loading required package: jsonlite\\\#\# Loading required package: reshape2\\\#\# Loading required package: RCurl\\\#\# Loading required package: bitops}}\begin{alltt}
 \hlcom{# Get a list of all measurement types}
 \hlstd{MTs} \hlkwb{<-} \hlkwd{getMeasurementTypes}\hlstd{()}
 \hlkwd{head}\hlstd{(MTs)}
@@ -145,7 +146,7 @@ rYoutheria also allows searching by country or study site ID. You can get a list
 \end{kframe}
 \end{knitrout}
 
-\section{Choosing search terms}
+\section{Retrieving data}
 Once we have decided what our search terms are going to be we can use the getMeasurementData() function.
 
 \begin{knitrout}
@@ -158,13 +159,13 @@ Once we have decided what our search terms are going to be we can use the getMea
 \hlkwd{head}\hlstd{(dispAge[,}\hlkwd{c}\hlstd{(}\hlstr{'Genus'}\hlstd{,}\hlstr{'Species'}\hlstd{,}\hlstr{'Data Value'}\hlstd{,}\hlstr{'Measure'}\hlstd{)])}
 \end{alltt}
 \begin{verbatim}
-##         Genus       Species Data Value     Measure
-## 1    Petaurus     breviceps        8.5    Midrange
-## 2      Castor    canadensis          2 Unspecified
-## 3     Marmota  flaviventris          1 Unspecified
-## 4    Dasyurus albopunctatus          4 Unspecified
-## 5    Dasyurus     spartacus          4 Unspecified
-## 6 Sminthopsis     virginiae         65 Unspecified
+##       Genus   Species Data Value     Measure
+## 1 Georychus  capensis         50 Unspecified
+## 2   Otocyon megalotis        5.5    Midrange
+## 3      Lynx      lynx        113      Median
+## 4  Acinonyx   jubatus         16    Midrange
+## 5    Sousa  chinensis        3.5        Mean
+## 6 Mellivora  capensis         14        Mean
 \end{verbatim}
 \begin{alltt}
 \hlcom{# Get measurement data for body mass of Daubenton's bats}
@@ -175,12 +176,12 @@ Once we have decided what our search terms are going to be we can use the getMea
 \end{alltt}
 \begin{verbatim}
 ##    Genus     Species Data Value Units Weight
-## 1 Myotis  daubentoni        7.4        grams
+## 1 Myotis daubentonii      0.007    kilograms
 ## 2 Myotis  daubentoni        7.4        grams
-## 3 Myotis  daubentoni       2.09        grams
-## 4 Myotis daubentonii          7        grams
-## 5 Myotis daubentonii        8.5        grams
-## 6 Myotis daubentonii       8.94        grams
+## 3 Myotis  daubentoni        7.4        grams
+## 4 Myotis  daubentoni       2.09        grams
+## 5 Myotis daubentonii          7        grams
+## 6 Myotis daubentonii        8.5        grams
 \end{verbatim}
 \begin{alltt}
 \hlcom{# Get measurement data for age of maturity of Swiss Lynx}

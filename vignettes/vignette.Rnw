@@ -19,10 +19,16 @@
 \date\today
 \maketitle
 \section{Introduction}
-Youtheria is an online dataset containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource
+Youtheria is an online data set containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource
 
 \section{Installation}
-The package can be installed directly from GitHub like this
+The package can be installed directly from CRAN like this:
+
+\begin{verbatim}
+install.packages('rYoutheria')
+\end{verbatim}
+
+Alternatively you can install the most recent development version of the package like this:
 
 \begin{verbatim}
 # Install devtools
@@ -33,9 +39,6 @@ library(devtools)
 
 # Install rYoutheria from github
 install_github("rYoutheria", username = "BiologicalRecordsCentre")
-
-# Load rYoutheria
-library(rYoutheria)
 \end{verbatim}
 
 \section{Choosing search terms}
@@ -63,7 +66,7 @@ Cs <- getCountries()
 head(Cs)
 @
 
-\section{Choosing search terms}
+\section{Retrieving data}
 Once we have decided what our search terms are going to be we can use the getMeasurementData() function.
 
 <<tidy.opts=list(width.cutoff=60)>>=
