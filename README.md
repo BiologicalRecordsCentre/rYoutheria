@@ -4,7 +4,11 @@
 ### Installation
 ----------------
 
-To **install** the rYoutheria package, it's easiest to use the `devtools` package:
+The package can be installed directly from CRAN like this:
+    
+    install.packages(rYoutheria)
+
+Alternatively you can install the most recent development version of the package like this:
 
     # install.packages("devtools")
     # NOTE: If you have not installed devtools before you will need to restart you R

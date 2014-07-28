@@ -3,6 +3,8 @@ context("Test getMeasurementData")
 library(rYoutheria)
 
 test_that("Testing errors and warnings are given", {
+  expect_error(test <- getMeasurementData(),
+               regexp = 'Downloading everything will crash your computer')
   expect_error(test <- getMeasurementData(999),
                regexp = 'All measurement types specified are invalid:')
   expect_warning(test <- getMeasurementData(c(12,999)),

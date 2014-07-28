@@ -32,6 +32,7 @@
 #' @import reshape2
 #' @examples
 #' 
+#' \dontrun{
 #' # Select measurement type by id
 #' M14 <- getMeasurementData(14)
 #' M22_7_2 <- getMeasurementData(c(22,7,2))
@@ -48,6 +49,7 @@
 #' Ob_Activity_Tanz <- getMeasurementData(measurementType = 'Activity Cycle',
 #'                                        MSW05Binomial = 'Oryx beisa',
 #'                                        country = 'Tanzania')
+#' }
 
 getMeasurementData <-
   function(measurementType = NA,
@@ -60,7 +62,12 @@ getMeasurementData <-
            cast = TRUE,
            silent = FALSE
            ){
-  
+    # Prevent download of everthing (this will most likley cause a crash)
+    if(all(is.na(c(measurementType, MSW93Binomial, MSW05Binomial))) &
+       all(is.null(c(country, StudyUnitId)))) {
+      stop('Downloading everything will crash your computer, use one of the filtering arguments')
+    }
+    
     if(!identical(measurementType,NA)){
             
         if(is.numeric(measurementType)){

@@ -49,6 +49,7 @@ Retrieves a \code{data.frame} of trait measurements with facilities to select by
 location, species name and/or measurement type.
 }
 \examples{
+\dontrun{
 # Select measurement type by id
 M14 <- getMeasurementData(14)
 M22_7_2 <- getMeasurementData(c(22,7,2))
@@ -65,5 +66,6 @@ PpPr_bodymass <- getMeasurementData(measurementType = 1,
 Ob_Activity_Tanz <- getMeasurementData(measurementType = 'Activity Cycle',
                                        MSW05Binomial = 'Oryx beisa',
                                        country = 'Tanzania')
+}
 }
 
