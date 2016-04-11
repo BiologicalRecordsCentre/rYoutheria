@@ -9,6 +9,7 @@ vignette: >
   %\VignetteIndexEntry{rYouteria Guide}
   %\VignettePackage{rYoutheria}
   %\VignetteEngine{knitr::knitr}
+  %\usepackage[utf8]{inputenc}
 ---
 
 # Introduction
