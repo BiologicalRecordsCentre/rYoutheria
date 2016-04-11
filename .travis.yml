@@ -11,18 +11,18 @@ r_packages:
 
 ## After success update the code coverage
 after_success:
-  - Rscript -e 'library(covr);codecov()'
+  - Rscript -e 'library(covr); codecov()'
 
 # Warnings don't fail build
 warnings_are_errors: false
 
 ## Email notification if the package pass status changes
 notifications:
-  email:
+email:
   recipients:
-  - tomaug@ceh.ac.uk
-on_success: change
-on_failure: change
+    - tomaug@ceh.ac.uk
+  on_success: change
+  on_failure: change
 
 ## Set up the matrix of different runs
 env:
