@@ -1,8 +1,8 @@
 context("Test getMeasurementTypes")
 
-library(rYoutheria)
-
 test_that("Testing error is given", {
+  skip_on_cran()
+  
   expect_error(getMeasurementTypes(measurementType = TRUE),
                regexp = 'argument must be numeric, integer, charater or NULL')
   expect_warning(getMeasurementTypes(measurementType = 'foo'),
@@ -10,6 +10,8 @@ test_that("Testing error is given", {
 })
 
 test_that("Testing data is returned", {
+  skip_on_cran()
+  
   expect_is(test <- getMeasurementTypes(), 'data.frame')
   expect_equal(ncol(test), 2)
   expect_true(all(c('Activity Cycle', 'Diet','Litter Size','Ranging Behaviour','Wing Morphology')

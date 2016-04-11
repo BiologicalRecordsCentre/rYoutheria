@@ -1,8 +1,8 @@
 context("Test getMeasurementData")
 
-library(rYoutheria)
-
 test_that("Testing errors and warnings are given", {
+  skip_on_cran()
+  
   expect_error(test <- getMeasurementData(),
                regexp = 'Downloading everything will crash your computer')
   expect_error(test <- getMeasurementData(999),
@@ -26,6 +26,8 @@ test_that("Testing errors and warnings are given", {
 })
 
 test_that("Testing search by measurement type", {
+  skip_on_cran()
+  
   expect_is(test <- getMeasurementData(measurementType='Dispersal Age', silent=TRUE), 'data.frame')
   expect_equal(ncol(test), 32)
   expect_is(test2 <- getMeasurementData(c('Growth Data','Dispersal Age'), silent=TRUE), 'data.frame')
@@ -33,6 +35,8 @@ test_that("Testing search by measurement type", {
 })
 
 test_that("Testing MSW93binomial searches", {
+  skip_on_cran()
+  
   expect_is(test <- getMeasurementData(measurementType = 12, MSW93Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
   expect_equal(ncol(test), 32)
   expect_is(test2 <- getMeasurementData(measurementType = 12, MSW93Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
@@ -40,6 +44,8 @@ test_that("Testing MSW93binomial searches", {
 })
 
 test_that("Testing MSW05binomial searches", {
+  skip_on_cran()
+  
   expect_is(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
   expect_equal(ncol(test), 32)
   expect_is(test2 <- getMeasurementData(measurementType = 12, MSW05Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
@@ -47,10 +53,14 @@ test_that("Testing MSW05binomial searches", {
 })
 
 test_that("Testing complex search", {
+  skip_on_cran()
+  
   expect_is(test <- getMeasurementData(measurementType = c(12,16,1), MSW05Binomial=c('Petaurus breviceps','Equus zebra'), silent=TRUE), 'data.frame')
 })
 
 test_that("Testing casting", {
+  skip_on_cran()
+  
   expect_is(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', cast = FALSE, silent=TRUE), 'data.frame')
   expect_equal(ncol(test), 26)
   expect_is(test2 <- getMeasurementData(measurementType = 12, MSW05Binomial='Petaurus breviceps', silent=TRUE), 'data.frame')
@@ -58,6 +68,8 @@ test_that("Testing casting", {
 })
 
 test_that("Testing location addition", {
+  skip_on_cran()
+  
   expect_is(test1 <- getMeasurementData(measurementType = 12, locationData = TRUE, silent=TRUE), 'data.frame')
   expect_equal(ncol(test1), 32)
   expect_warning(test2 <- getMeasurementData(measurementType = 12, locationData = TRUE, locationOnly = TRUE, silent=TRUE),
