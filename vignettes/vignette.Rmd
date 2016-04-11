@@ -84,7 +84,7 @@ head(Cs)
 ```
 ##      countryName countryId
 ## 1     Afganistan         2
-## 2  Åland Islands         5
+## 2  Aland Islands         5
 ## 3        Albania         6
 ## 4        Algeria        65
 ## 5 American Samoa        12
