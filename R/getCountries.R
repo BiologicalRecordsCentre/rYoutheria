@@ -6,8 +6,10 @@
 #' \link{getMeasurementData} to restrict the search to a specific country
 #' @export        
 #' @examples
+#' \dontrun{
 #' # Get a dataframe of all countries
 #' getCountries()
+#' }
 
 getCountries <- function(){
   
