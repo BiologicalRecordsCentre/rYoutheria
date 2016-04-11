@@ -22,4 +22,5 @@ Suggests:
     testthat,
     roxygen2
 License: MIT + file LICENSE
+URL: https://github.com/BiologicalRecordsCentre/rYoutheria
 RoxygenNote: 5.0.1
