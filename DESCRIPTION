@@ -7,7 +7,7 @@ Version: 1.0.1
 Date: 2016-04-11
 Author: Tom August
 Maintainer: Tom August <tomaug@ceh.ac.uk>
-VignetteBuilder: knitr
+VignetteBuilder: rmarkdown
 URL: https://github.com/biologicalrecordscentre/rYoutheria
 BugReports: https://github.com/biologicalrecordscentre/rYoutheria/issues
 Depends:
@@ -18,7 +18,7 @@ Imports:
     reshape2,
     RCurl
 Suggests:
-    knitr,
+    rmarkdown,
     testthat,
     roxygen2
 License: MIT + file LICENSE
