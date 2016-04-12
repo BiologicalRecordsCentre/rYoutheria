@@ -1,13 +1,13 @@
 Package: rYoutheria
 Type: Package
-Title: Access to the YouTheria mammal trait database
-Description: A programmatic interface to web-services of Youtheria. Youtheria is
-    an online database of mammalian trait data.
-Version: 1.0.1
+Title: Access to the YouTheria Mammal Trait Database
+Description: A programmatic interface to web-services of YouTheria. Youtheria is
+    an online database of mammalian trait data <http://www.utheria.org/>.
+Version: 1.0.2
 Date: 2016-04-11
 Author: Tom August
 Maintainer: Tom August <tomaug@ceh.ac.uk>
-VignetteBuilder: rmarkdown
+VignetteBuilder: knitr
 URL: https://github.com/biologicalrecordscentre/rYoutheria
 BugReports: https://github.com/biologicalrecordscentre/rYoutheria/issues
 Depends:
@@ -18,7 +18,7 @@ Imports:
     reshape2,
     RCurl
 Suggests:
-    rmarkdown,
+    knitr,
     testthat,
     roxygen2
 License: MIT + file LICENSE
