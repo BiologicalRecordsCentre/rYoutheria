@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Extracting data from the Youtheria database into R</title>
+<title>Extracting data from the YouTheria database into R</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -208,11 +208,11 @@ hr {
 %\usepackage[utf8]{inputenc}
 -->
 
-<h1>Extracting data from the Youtheria database into R</h1>
+<h1>Extracting data from the YouTheria database into R</h1>
 
 <h1>Introduction</h1>
 
-<p>Youtheria is an online data set containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource</p>
+<p>YouTheria is an online data set containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource</p>
 
 <h1>Installation</h1>
 
@@ -235,7 +235,7 @@ devtools::install_github(&quot;BiologicalRecordsCentre/rYoutheria&quot;)
 
 <h1>Choosing search terms</h1>
 
-<p>When searching Youtheria it is likely that you have a measurement type in mind, such as body mass or diet. To look up what measurement types are available use the <code>getMeasurementTypes()</code> function:</p>
+<p>When searching YouTheria it is likely that you have a measurement type in mind, such as body mass or diet. To look up what measurement types are available use the <code>getMeasurementTypes()</code> function:</p>
 
 <pre><code class="r"># Load rYoutheria
 library(rYoutheria)
@@ -262,7 +262,7 @@ getMeasurementTypes(measurementType=&#39;Body Mass&#39;)
 ## 1  1 Body Mass
 </code></pre>
 
-<p>Species names in Youtheria are linked to definitions given in the Mammal Species of the World books, and when it comes to searching you can search under either the 1993 definitions or the 2005 definitions.</p>
+<p>Species names in YouTheria are linked to definitions given in the Mammal Species of the World books, and when it comes to searching you can search under either the 1993 definitions or the 2005 definitions.</p>
 
 <p>rYoutheria also allows searching by country or study site ID. You can get a list of countries by using the getCountries() function. This takes no arguments and simply gives you a list of all countries available</p>
 

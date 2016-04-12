@@ -5,11 +5,11 @@
 %\usepackage[utf8]{inputenc}
 -->
 
-Extracting data from the Youtheria database into R
+Extracting data from the YouTheria database into R
 ======
 
 # Introduction
-Youtheria is an online data set containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource
+YouTheria is an online data set containing data on the life history, ecology, taxonomy and geography of mammals. This package provides methods to retrieve data from this resource
 
 # Installation
 The package can be installed directly from CRAN like this:
@@ -34,7 +34,7 @@ devtools::install_github("BiologicalRecordsCentre/rYoutheria")
 ```
 
 # Choosing search terms
-When searching Youtheria it is likely that you have a measurement type in mind, such as body mass or diet. To look up what measurement types are available use the `getMeasurementTypes()` function:
+When searching YouTheria it is likely that you have a measurement type in mind, such as body mass or diet. To look up what measurement types are available use the `getMeasurementTypes()` function:
 
 
 ```r
@@ -66,7 +66,7 @@ getMeasurementTypes(measurementType='Body Mass')
 ## 1  1 Body Mass
 ```
 
-Species names in Youtheria are linked to definitions given in the Mammal Species of the World books, and when it comes to searching you can search under either the 1993 definitions or the 2005 definitions.
+Species names in YouTheria are linked to definitions given in the Mammal Species of the World books, and when it comes to searching you can search under either the 1993 definitions or the 2005 definitions.
 
 rYoutheria also allows searching by country or study site ID. You can get a list of countries by using the getCountries() function. This takes no arguments and simply gives you a list of all countries available
 

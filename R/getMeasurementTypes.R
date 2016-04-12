@@ -1,6 +1,6 @@
 #' Get Measurement Types
 #' 
-#' Retrieves a \code{data.frame} of measurement types available from Youtheria.
+#' Retrieves a \code{data.frame} of measurement types available from YouTheria.
 #' 
 #' @param measurementType If \code{NULL} (default), then all measurement types are
 #'        returned. Can also be 'numeric' or 'character' (or a list of either type)

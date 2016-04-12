@@ -15,7 +15,7 @@ and will filter by Id and Name respectivly in the resulting data.frame.}
 A dataframe of measurement types giving their Id and Name
 }
 \description{
-Retrieves a \code{data.frame} of measurement types available from Youtheria.
+Retrieves a \code{data.frame} of measurement types available from YouTheria.
 }
 \examples{
 \dontrun{
