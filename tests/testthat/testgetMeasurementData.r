@@ -15,6 +15,8 @@ test_that("Testing errors and warnings are given", {
                  regexp = 'Some measurement types unknown:')
   expect_warning(test <- getMeasurementData(measurementType = 12, MSW93Binomial='Pon', silent=TRUE),
                  regexp = 'No data was returned')
+  expect_warning(test <- getMeasurementData(measurementType = 12, MSW93Binomial='Pon', locationData = FALSE, silent=TRUE),
+                 regexp = 'No data was returned')
   expect_warning(test <- getMeasurementData(measurementType = 12, MSW93Binomial=c('Tom', 'Dick', 'Harry', 'Petaurus breviceps'), silent=TRUE),
                  regexp = 'There were no results returned for the following species: Tom, Dick, Harry')
   expect_warning(test <- getMeasurementData(measurementType = 12, MSW05Binomial='Pon', silent=TRUE),
@@ -28,10 +30,17 @@ test_that("Testing errors and warnings are given", {
 test_that("Testing search by measurement type", {
   skip_on_cran()
   
-  expect_is(test <- getMeasurementData(measurementType='Dispersal Age', silent=TRUE), 'data.frame')
+  expect_is(test <- getMeasurementData(measurementType='Dispersal Age',
+                                       silent=TRUE), 'data.frame')
   expect_equal(ncol(test), 32)
-  expect_is(test2 <- getMeasurementData(c('Growth Data','Dispersal Age'), silent=TRUE), 'data.frame')
+  expect_is(test2 <- getMeasurementData(c('Growth Data','Dispersal Age'),
+                                        silent=TRUE), 'data.frame')
   expect_true(nrow(test) < nrow(test2))
+  expect_is(test3 <- getMeasurementData(measurementType = 'Dispersal Age',
+                                       silent = TRUE,
+                                       locationData = FALSE), 'data.frame')
+  expect_equal(ncol(test3), 17)
+  
 })
 
 test_that("Testing MSW93binomial searches", {
