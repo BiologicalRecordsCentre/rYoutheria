@@ -27,7 +27,7 @@ library(rYoutheria)
 A tutorial, included in the installation, can be found by running:
 
 ```r
- vignette('vignette', package = 'rYoutheria')
+ vignette("using_youtheria")
  ```
  
 If you have difficulties installing rYoutheria using this method try updating your version of R to the most up-to-date version available. If you still have problems please contact us or use the [issues page](https://github.com/BiologicalRecordsCentre/rYoutheria/issues?state=open).
