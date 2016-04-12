@@ -1,7 +1,7 @@
 # rYoutheria
 ------
 [![Build Status](https://travis-ci.org/BiologicalRecordsCentre/rYoutheria.svg)](https://travis-ci.org/BiologicalRecordsCentre/rYoutheria)
-[![codecov.io](https://codecov.io/github/biologicalrecordscentre/ryoutheria/coverage.svg?branch=master)](https://codecov.io/github/biologicalrecordscentre/ryoutheria?branch=master)
+[![codecov.io](https://codecov.io/github/BiologicalRecordsCentre/rYoutheria/coverage.svg?branch=master)](https://codecov.io/github/BiologicalRecordsCentre/rYoutheria?branch=master)
 [![cran version](http://www.r-pkg.org/badges/version/rYoutheria)](http://cran.rstudio.com/web/packages/rYoutheria) 
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/rYoutheria?)](https://github.com/metacran/cranlogs.app)
 
