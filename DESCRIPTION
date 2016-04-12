@@ -3,7 +3,7 @@ Type: Package
 Title: Access to the YouTheria Mammal Trait Database
 Description: A programmatic interface to web-services of YouTheria. YouTheria is
     an online database of mammalian trait data <http://www.utheria.org/>.
-Version: 1.0.2
+Version: 1.0.3
 Date: 2016-04-11
 Author: Tom August
 Maintainer: Tom August <tomaug@ceh.ac.uk>
