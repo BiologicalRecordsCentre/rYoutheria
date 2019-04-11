@@ -6,7 +6,7 @@ runURL <-
     if(is.null(URL)) stop('URL is NULL')
     if(is.null(type)) stop('type is NULL')
     
-    apiURL <- 'http://www.utheria.org/api/'
+    apiURL <- 'http://www.utheria.org.uk/api/'
     
     if(type=='m') baseURL <- paste(apiURL, 'ValueByType', sep = '')
     if(type=='l') baseURL <- paste(apiURL, 'Location', sep = '')
